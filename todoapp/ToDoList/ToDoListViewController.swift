@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ToDosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
