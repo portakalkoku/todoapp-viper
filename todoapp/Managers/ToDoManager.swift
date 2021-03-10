@@ -12,9 +12,11 @@ class ToDoManager {
     let documentManager = DocumentManager.shared
     
     
-    func fetchToDos() -> [ToDoItem] {
-        guard let toDoList = documentManager.readJsonFile() else {return []}
-        return toDoList
+    func fetchToDos(completion:@escaping ([ToDoItem]?) -> (Void))  {
+        guard let toDoList = documentManager.readJsonFile() else {
+            completion(nil)
+            return }
+        completion(toDoList)
     }
     
 

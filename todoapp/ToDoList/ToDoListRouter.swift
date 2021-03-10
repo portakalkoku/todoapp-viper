@@ -11,7 +11,7 @@ class ToDoListRouter:PresenterToRouterProtocol{
         let view = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "toDoListViewController") as! ToDoListViewController
         
         
-        
+        //creating layers
         let presenter:ViewToPresenterProtocol & InteractorToPresenterProtocol = ToDoListPresenter()
         let interactor: PresenterToInteractorProtocol = ToDoListInteractor()
         let router: PresenterToRouterProtocol = ToDoListRouter()
@@ -21,8 +21,6 @@ class ToDoListRouter:PresenterToRouterProtocol{
         
         view.presenter = presenter
         presenter.view = view
-
-        
        
         presenter.router = router
         presenter.interactor = interactor

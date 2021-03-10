@@ -9,7 +9,6 @@ import Foundation
 class ToDoListPresenter: ViewToPresenterProtocol {
 
 
-    
 
     var fragment: PresenterToViewProtocol?
     var router: PresenterToRouterProtocol?
@@ -28,6 +27,14 @@ class ToDoListPresenter: ViewToPresenterProtocol {
         
         return days.count
     }
+    
+    func toDoAdded(detail: String) {
+        view?.showLoading()
+        interactor?.addToDo(detail: detail)
+        
+    }
+    
+
     
     func day(indexPath: IndexPath) -> Day? {
         guard let days = dayList else {
@@ -92,7 +99,7 @@ extension ToDoListPresenter:InteractorToPresenterProtocol {
         
     }
     
-    func statusChangedFailure() {
+    func toDoProcessFailed() {
         view?.showAlertMessage(message: "Status of the todo couldn't be changed")
     }
     
@@ -106,7 +113,7 @@ extension ToDoListPresenter:InteractorToPresenterProtocol {
         view?.reloadCollectionView()
     }
     
-    func statusChangedSuccessfully(toDos: [ToDoItem]) {
+    func toDoProcessCompleted(toDos: [ToDoItem]) {
         self.toDoList = toDos
         view?.reloadData()
     }
@@ -121,6 +128,7 @@ extension ToDoListPresenter:InteractorToPresenterProtocol {
     }
     
     func fetchToDosFailure(error: String) {
+        view?.showAlertMessage(message: error)
         
     }
     

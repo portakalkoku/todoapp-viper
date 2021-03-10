@@ -28,6 +28,7 @@
 		5F9BEEA325F7D9A3005C7693 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9BEEA225F7D9A3005C7693 /* Protocols.swift */; };
 		5F9BEF1725F7FB46005C7693 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9BEF1525F7FB46005C7693 /* ToDoCell.swift */; };
 		5F9BEF1825F7FB46005C7693 /* ToDoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F9BEF1625F7FB46005C7693 /* ToDoCell.xib */; };
+		5FA1DAA025F8F00600FF011F /* AlertDialogues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA1DA9F25F8F00600FF011F /* AlertDialogues.swift */; };
 		5FBB168725F894EE0081731B /* DocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB168625F894EE0081731B /* DocumentManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		5F9BEEA225F7D9A3005C7693 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5F9BEF1525F7FB46005C7693 /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		5F9BEF1625F7FB46005C7693 /* ToDoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoCell.xib; sourceTree = "<group>"; };
+		5FA1DA9F25F8F00600FF011F /* AlertDialogues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDialogues.swift; sourceTree = "<group>"; };
 		5FBB168625F894EE0081731B /* DocumentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +138,7 @@
 		5F8CB68D25F642A000B3C955 /* todoapp */ = {
 			isa = PBXGroup;
 			children = (
+				5FA1DA9E25F8EFA500FF011F /* Dialogues */,
 				5F9BEF3425F81818005C7693 /* Protocols */,
 				5F9BEF1C25F7FBC8005C7693 /* ToDo */,
 				5F0F84ED25F75D36003137EA /* Days */,
@@ -216,6 +219,14 @@
 				5F9BEEA225F7D9A3005C7693 /* Protocols.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5FA1DA9E25F8EFA500FF011F /* Dialogues */ = {
+			isa = PBXGroup;
+			children = (
+				5FA1DA9F25F8F00600FF011F /* AlertDialogues.swift */,
+			);
+			path = Dialogues;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FA1DAA025F8F00600FF011F /* AlertDialogues.swift in Sources */,
 				5F8CB69325F642A000B3C955 /* ToDoListViewController.swift in Sources */,
 				5F8CB68F25F642A000B3C955 /* AppDelegate.swift in Sources */,
 				5F8CB6FB25F6724000B3C955 /* DayManager.swift in Sources */,

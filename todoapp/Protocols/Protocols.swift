@@ -15,6 +15,7 @@ protocol ViewToPresenterProtocol:class {
     func viewDidLoad()
     func toDoTapped(indexPath:IndexPath)
     func toDoDelete(indexPath:IndexPath)
+    func toDoAdded(detail:String)
     func dayTapped(indexPath:IndexPath)
     func toDosCount()->Int
     func toDo(indexPath:IndexPath)->ToDoItem?
@@ -36,13 +37,14 @@ protocol  PresenterToInteractorProtocol :class {
     func changeToDoCompletionStatus(uuid:UUID)
     func selectDay(index:Int)
     func deleteToDo(uuid:UUID)
+    func addToDo(detail:String)
 }
 //MARK: Interactor->Presenter
 protocol InteractorToPresenterProtocol:class {
     func fetchToDosSuccess(toDos:[ToDoItem])
     func fetchToDosFailure(error:String)
-    func statusChangedSuccessfully(toDos:[ToDoItem])
-    func statusChangedFailure()
+    func toDoProcessCompleted(toDos:[ToDoItem])
+    func toDoProcessFailed()
     func deletionSuccessful()
     func daySelected(days:[Day])
     

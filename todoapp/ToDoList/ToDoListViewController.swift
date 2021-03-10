@@ -11,43 +11,53 @@ import Foundation
 
 class ToDoListViewController: UIViewController{
     
+    //MARK: Reference outlets! Days in a collection view and the tasks are in a table view.
+    
     @IBOutlet weak var toDosTableView: UITableView!
     
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var presenter: ViewToPresenterProtocol?
+    
+    
+    let alertDialogues = AlertDialogues.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
         setupUI()
         presenter?.viewDidLoad()
         toDosTableView.delegate = self
         toDosTableView.dataSource = self
-     
-    }
-      
-    override func viewDidAppear(_ animated: Bool) {
-       
+        
     }
     
-    var presenter: ViewToPresenterProtocol?
-
+    
 }
 
 extension ToDoListViewController {
     
+
     func setupUI(){
         overrideUserInterfaceStyle = .light
         self.title = "ToDo List"
         toDosTableView.register(UINib(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
-        
         collectionView.register(UINib(nibName: "DayCell", bundle: nil), forCellWithReuseIdentifier: "DayCell")
+        let rightBarButtonItem = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(addTapped)) //adds uibarbutton programatically
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
-
+    @objc func addTapped() {
+        
+        alertDialogues.showInputDialog(view: self) { (text) in
+            guard let text = text else {return}
+            self.presenter?.toDoAdded(detail: text)
+            
+        }
+    }
     
-
 }
 
 
@@ -67,7 +77,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.toDoItem = presenter?.toDo(indexPath: indexPath)
         return cell
-  
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -76,7 +86,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             presenter?.toDoDelete(indexPath: indexPath)
@@ -89,52 +99,50 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ToDoListViewController:UICollectionViewDelegate,UICollectionViewDataSource {
-   
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.dayCount() ?? 0
-   }
-   
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayCell", for: indexPath) as! DayCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayCell", for: indexPath) as! DayCell
         cell.day = presenter?.day(indexPath: indexPath)
-       return cell
-   }
-   
-   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    presenter?.dayTapped(indexPath:indexPath)
-   }
-   
-   
-
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.dayTapped(indexPath:indexPath)
+    }
+    
+    
+    
 }
 
 extension ToDoListViewController: PresenterToViewProtocol {
     func showAlertMessage(message: String) {
-
-        let alertDialog = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
-        alertDialog.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alertDialog, animated: true, completion: nil)
+        alertDialogues.showAlertDialog(view:self,message: message)
+  
     }
     
     func reloadCollectionView() {
         hideActivityIndicator()
-
+        
         self.collectionView.reloadData()
     }
     
     func onFetchCompleted() {
         hideActivityIndicator()
-
+        
         self.toDosTableView.reloadData()
     }
     
-
+    
     func showLoading() {
         showActivityIndicator()
         
     }
     
-  
+    
     func reloadData() {
         hideActivityIndicator()
         self.toDosTableView.reloadData()

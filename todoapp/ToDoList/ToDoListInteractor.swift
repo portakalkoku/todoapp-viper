@@ -7,9 +7,7 @@
 
 import Foundation
 class ToDoListInteractor: PresenterToInteractorProtocol {
-   
 
-    
     
     var toDoList:[ToDoItem]?
     let dayManager = DayManager.shared
@@ -34,6 +32,22 @@ class ToDoListInteractor: PresenterToInteractorProtocol {
         fetchToDos()
     }
     
+    func addToDo(detail: String) {
+        let tempToDo = ToDoItem(detail: detail, completed: false, uuid: UUID(), belongTo: selectedDay?.id ?? 0)
+        toDoList?.append(tempToDo)
+        documentManager.addToDoToJson(toDoItem: tempToDo) { (success) in
+            if(success) {
+                self.presenter?.toDoProcessCompleted(toDos: self.toDoList ?? [])
+                
+            }else {
+                self.presenter?.toDoProcessFailed()
+            }
+        }
+        
+    }
+    
+   
+    
     
     func deselectOtherDays() {
         for i in 0...days.count - 1 {
@@ -57,9 +71,9 @@ class ToDoListInteractor: PresenterToInteractorProtocol {
             if(success) {
                 toDoList.remove(at: index)
                 self.toDoList = toDoList
-                self.presenter?.statusChangedSuccessfully(toDos: self.toDoList ?? [])
+                self.presenter?.toDoProcessCompleted(toDos: self.toDoList ?? [])
             }else {
-                self.presenter?.statusChangedFailure()
+                self.presenter?.toDoProcessFailed()
             }
         }
     
@@ -87,12 +101,12 @@ class ToDoListInteractor: PresenterToInteractorProtocol {
         changeToDoStatus(&toDo, &toDoList, index)
         documentManager.updateJsonFile(toDoItem: toDo) { (success) in
             if(success) {
-                self.presenter?.statusChangedSuccessfully(toDos: self.toDoList ?? [])
+                self.presenter?.toDoProcessCompleted(toDos: self.toDoList ?? [])
             }
             else {
                 var toDo = toDoList[index]
                 self.changeToDoStatus(&toDo, &toDoList, index)
-                self.presenter?.statusChangedFailure()
+                self.presenter?.toDoProcessFailed()
                 
             }
         }
@@ -104,10 +118,21 @@ class ToDoListInteractor: PresenterToInteractorProtocol {
     func fetchToDos() {
         guard let selectedDay = self.selectedDay else {return}
         
-        toDoList = ToDoManager.shared.fetchToDos().filter({ (toDoItem) -> Bool in
-            toDoItem.belongTo == selectedDay.id
-        })
-        presenter?.fetchToDosSuccess(toDos: toDoList ?? [])
+        ToDoManager.shared.fetchToDos { (toDos) -> (Void) in
+            guard let toDos = toDos else {
+                
+                self.presenter?.fetchToDosFailure(error: "ToDos could't be fetched")
+                return
+                
+            }
+            self.toDoList = toDos.filter({ (toDoItem) -> Bool in
+                toDoItem.belongTo == selectedDay.id
+            })
+           
+            self.presenter?.fetchToDosSuccess(toDos: self.toDoList ?? [])
+        }
+    
+    
     }
     
     fileprivate func changeToDoStatus(_ toDo: inout ToDoItem, _ toDoList: inout [ToDoItem], _ index: Array<ToDoItem>.Index) {

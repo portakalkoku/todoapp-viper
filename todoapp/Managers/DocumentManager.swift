@@ -13,7 +13,6 @@ class DocumentManager {
         
         guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil}
         let fileUrl = documentsDirectoryUrl.appendingPathComponent("todos.json")
-        print(fileUrl)
         
         do {
             let data = try Data(contentsOf: fileUrl, options: [])
@@ -77,24 +76,45 @@ class DocumentManager {
 
     }
     
-    let _dummyDatas = [ToDoItem(detail: "Köpek dışarı çıkarılacak.", completed: false, uuid: UUID(), belongTo: 1),
-                       ToDoItem(detail: "Market alışverişi yapılacak", completed: false, uuid: UUID(), belongTo: 2),
-                       ToDoItem(detail: "Ders çalış", completed: false, uuid: UUID(), belongTo: 4),
-                       ToDoItem(detail: "Oyun oyna", completed: false, uuid: UUID(), belongTo: 3),
-                       ToDoItem(detail: "Köpeği dışarı çıkar", completed: false, uuid: UUID(), belongTo: 6),
-                       ToDoItem(detail: "Köpeği dışarı çıkar.", completed: false, uuid: UUID(), belongTo: 1),
-                       ToDoItem(detail: "Köpek dışarı çıkarılacak.", completed: false, uuid: UUID(), belongTo: 1),
-                       ToDoItem(detail: "Market alışverişi yapılacak", completed: false, uuid: UUID(), belongTo: 2),
-                       ToDoItem(detail: "Ders çalış", completed: false, uuid: UUID(), belongTo: 4),
-                       ToDoItem(detail: "Oyun oyna", completed: false, uuid: UUID(), belongTo: 3),
-                       ToDoItem(detail: "Köpeği dışarı çıkar", completed: false, uuid: UUID(), belongTo: 6),
-                       ToDoItem(detail: "Köpeği dışarı çıkar.", completed: false, uuid: UUID(), belongTo: 1),
-                       ToDoItem(detail: "Köpek dışarı çıkarılacak.", completed: false, uuid: UUID(), belongTo: 1),
-                       ToDoItem(detail: "Market alışverişi yapılacak", completed: false, uuid: UUID(), belongTo: 2),
-                       ToDoItem(detail: "Ders çalış", completed: false, uuid: UUID(), belongTo: 4),
-                       ToDoItem(detail: "Oyun oyna", completed: false, uuid: UUID(), belongTo: 3),
-                       ToDoItem(detail: "Köpeği dışarı çıkar", completed: false, uuid: UUID(), belongTo: 6),
-                       ToDoItem(detail: "Köpeği dışarı çıkar.", completed: false, uuid: UUID(), belongTo: 1),]
+    func addToDoToJson(toDoItem:ToDoItem,completion: @escaping (Bool) -> Void) {
+        guard var toDoList = readJsonFile() else {return}
+        
+        toDoList.append(toDoItem)
+        saveToJsonFile(toDoList: toDoList) { (success) in
+            completion(success)
+        }
+
+    }
+    
+    
+    //Dummy data if there is no todos.json file on the directory! We want to see some data on the first launch!
+    let _dummyDatas = [ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 1),
+                       ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 2),
+                       ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 3),
+                       ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 4),
+                       ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 5),
+                       ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 6),
+                       ToDoItem(detail: "Go outside with the dog", completed: false, uuid: UUID(), belongTo: 7),
+                       ToDoItem(detail: "Go shopping", completed: false, uuid: UUID(), belongTo: 2),
+                       ToDoItem(detail: "Play video game", completed: false, uuid: UUID(), belongTo: 4),
+                       ToDoItem(detail: "Watch a movie", completed: false, uuid: UUID(), belongTo: 3),
+                       ToDoItem(detail: "Don't forget to drink 5 liters of water", completed: false, uuid: UUID(), belongTo: 6),
+                       ToDoItem(detail: "You have Cambly reservation tonight", completed: false, uuid: UUID(), belongTo: 1),
+                       ToDoItem(detail: "New episode of TWD", completed: false, uuid: UUID(), belongTo: 1),
+                       ToDoItem(detail: "Check your personal mail", completed: false, uuid: UUID(), belongTo: 2),
+                       ToDoItem(detail: "Phone a friend", completed: false, uuid: UUID(), belongTo: 4),
+                       ToDoItem(detail: "Sleep at least 6 hours", completed: false, uuid: UUID(), belongTo: 3),
+                       ToDoItem(detail: "Spend sometime on Medium", completed: false, uuid: UUID(), belongTo: 6),
+                       ToDoItem(detail: "Dont forget to update your Linkedin Profile", completed: false, uuid: UUID(), belongTo: 4),
+                       ToDoItem(detail: "Watch a movie", completed: false, uuid: UUID(), belongTo:5),
+                       ToDoItem(detail: "Don't forget to drink 5 liters of water", completed: false, uuid: UUID(), belongTo: 7),
+                       ToDoItem(detail: "You have Cambly reservation tonight", completed: false, uuid: UUID(), belongTo: 5),
+                       ToDoItem(detail: "New episode of TWD", completed: false, uuid: UUID(), belongTo: 5),
+                       ToDoItem(detail: "Check your personal mail", completed: false, uuid: UUID(), belongTo: 6),
+                       ToDoItem(detail: "Phone a friend", completed: false, uuid: UUID(), belongTo: 4),
+                       ToDoItem(detail: "Sleep at least 6 hours", completed: false, uuid: UUID(), belongTo: 3),
+                       ToDoItem(detail: "Spend sometime on Medium", completed: false, uuid: UUID(), belongTo: 2),
+                       ToDoItem(detail: "Dont forget to update your Linkedin Profile", completed: false, uuid: UUID(), belongTo: 1),]
     
     
     
