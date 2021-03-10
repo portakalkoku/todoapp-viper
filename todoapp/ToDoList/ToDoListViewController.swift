@@ -71,8 +71,19 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.taskTapped(indexPath: indexPath)
+        presenter?.toDoTapped(indexPath: indexPath)
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            presenter?.toDoDelete(indexPath: indexPath)
+        }
+    }
+    
+    
     
     
 }
@@ -117,11 +128,9 @@ extension ToDoListViewController: PresenterToViewProtocol {
         self.toDosTableView.reloadData()
     }
     
-    
+
     func showLoading() {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
-        self.view.isUserInteractionEnabled = false
+        showActivityIndicator()
         
     }
     
@@ -130,10 +139,16 @@ extension ToDoListViewController: PresenterToViewProtocol {
         hideActivityIndicator()
         self.toDosTableView.reloadData()
     }
+    
     fileprivate func hideActivityIndicator() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         self.view.isUserInteractionEnabled = true
+    }
+    fileprivate func showActivityIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        self.view.isUserInteractionEnabled = false
     }
     
     

@@ -8,6 +8,7 @@
 import Foundation
 class ToDoListPresenter: ViewToPresenterProtocol {
 
+
     
 
     var fragment: PresenterToViewProtocol?
@@ -36,6 +37,13 @@ class ToDoListPresenter: ViewToPresenterProtocol {
         return days[indexPath.row]
     }
     
+    func toDoDelete(indexPath: IndexPath) {
+        guard let  toDoList = self.toDoList else {
+            return
+        }
+        interactor?.deleteToDo(uuid: toDoList[indexPath.row].uuid)
+        
+    }
     
     
     func toDosCount() -> Int{
@@ -58,13 +66,12 @@ class ToDoListPresenter: ViewToPresenterProtocol {
     func viewDidLoad() {
         view?.showLoading()
         interactor?.fetchToDos()
-        //interactor?.fetchDays()
         interactor?.selectDay(index: 0)
         
     }
     
     
-    func taskTapped(indexPath:IndexPath) {
+    func toDoTapped(indexPath:IndexPath) {
         guard let  toDoList = self.toDoList else {
             return
         }
@@ -81,6 +88,10 @@ class ToDoListPresenter: ViewToPresenterProtocol {
 }
 
 extension ToDoListPresenter:InteractorToPresenterProtocol {
+    func deletionSuccessful() {
+        
+    }
+    
     func statusChangedFailure() {
         view?.showAlertMessage(message: "Status of the todo couldn't be changed")
     }

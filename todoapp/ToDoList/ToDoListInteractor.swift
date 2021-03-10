@@ -7,6 +7,7 @@
 
 import Foundation
 class ToDoListInteractor: PresenterToInteractorProtocol {
+   
 
     
     
@@ -39,6 +40,34 @@ class ToDoListInteractor: PresenterToInteractorProtocol {
             days[i].selected = false
         }
     }
+    
+    func deleteToDo(uuid: UUID) {
+        guard var toDoList = self.toDoList else {
+            return
+        }
+        let indexOfSelectedToDo = toDoList.firstIndex(where: { (item) -> Bool in
+            item.uuid == uuid
+        })
+        
+        guard let index = indexOfSelectedToDo else {
+            return
+        }
+        
+        documentManager.removeToDoFromJson(uuid: uuid) { (success) in
+            if(success) {
+                toDoList.remove(at: index)
+                self.toDoList = toDoList
+                self.presenter?.statusChangedSuccessfully(toDos: self.toDoList ?? [])
+            }else {
+                self.presenter?.statusChangedFailure()
+            }
+        }
+    
+     
+        
+        
+    }
+    
 
  
     

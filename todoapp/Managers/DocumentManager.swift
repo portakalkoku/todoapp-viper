@@ -64,6 +64,19 @@ class DocumentManager {
         }
     }
     
+    
+    func removeToDoFromJson(uuid:UUID,completion: @escaping (Bool) -> Void) {
+        guard var toDoList = readJsonFile() else {return}
+        
+        toDoList.removeAll { (toDo) -> Bool in
+            toDo.uuid == uuid
+        }
+        saveToJsonFile(toDoList: toDoList) { (success) in
+            completion(success)
+        }
+
+    }
+    
     let _dummyDatas = [ToDoItem(detail: "Köpek dışarı çıkarılacak.", completed: false, uuid: UUID(), belongTo: 1),
                        ToDoItem(detail: "Market alışverişi yapılacak", completed: false, uuid: UUID(), belongTo: 2),
                        ToDoItem(detail: "Ders çalış", completed: false, uuid: UUID(), belongTo: 4),
