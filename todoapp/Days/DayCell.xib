@@ -10,43 +10,52 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DayCell" customModule="todoapp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="211" height="248"/>
-            <autoresizingMask key="autoresizingMask"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DayCell" id="gTV-IL-0wX" customClass="DayCell" customModule="todoapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="574" height="344"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="211" height="248"/>
+                <rect key="frame" x="0.0" y="0.0" width="574" height="344"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHr-Wa-X6U">
-                        <rect key="frame" x="0.0" y="0.0" width="211" height="248"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vlh-ng-Eik">
+                        <rect key="frame" x="10" y="10" width="554" height="324"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdp-Eb-ZTq">
+                                <rect key="frame" x="18" y="52" width="518" height="230"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <constraints>
+                            <constraint firstItem="xdp-Eb-ZTq" firstAttribute="centerX" secondItem="vlh-ng-Eik" secondAttribute="centerX" id="84C-HB-kRi"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="xdp-Eb-ZTq" secondAttribute="bottom" constant="10" id="JL3-DU-5RP"/>
+                            <constraint firstItem="xdp-Eb-ZTq" firstAttribute="top" secondItem="vlh-ng-Eik" secondAttribute="topMargin" constant="10" id="R9B-uz-93p"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xdp-Eb-ZTq" secondAttribute="trailing" constant="10" id="elp-EN-sDW"/>
+                            <constraint firstItem="xdp-Eb-ZTq" firstAttribute="leading" secondItem="vlh-ng-Eik" secondAttribute="leadingMargin" constant="10" id="uBH-LL-lOD"/>
+                        </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdp-Eb-ZTq">
-                        <rect key="frame" x="84.5" y="113.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="CHr-Wa-X6U" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="6PZ-fx-a6n"/>
-                <constraint firstItem="xdp-Eb-ZTq" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="I3N-5m-jed"/>
-                <constraint firstItem="xdp-Eb-ZTq" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="QkD-Fp-C2O"/>
-                <constraint firstAttribute="bottom" secondItem="CHr-Wa-X6U" secondAttribute="bottom" id="TPq-RU-ASK"/>
-                <constraint firstItem="CHr-Wa-X6U" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WBy-Op-tkj"/>
-                <constraint firstAttribute="trailing" secondItem="CHr-Wa-X6U" secondAttribute="trailing" id="aZB-RH-f7c"/>
-                <constraint firstItem="CHr-Wa-X6U" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iXm-7R-ljY"/>
-                <constraint firstItem="CHr-Wa-X6U" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="zb3-Wy-2T0"/>
+                <constraint firstItem="vlh-ng-Eik" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="BMw-dS-T6n"/>
+                <constraint firstItem="vlh-ng-Eik" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="KEP-1Q-atW"/>
+                <constraint firstAttribute="bottom" secondItem="vlh-ng-Eik" secondAttribute="bottom" constant="10" id="Pqv-lA-RPv"/>
+                <constraint firstAttribute="trailing" secondItem="vlh-ng-Eik" secondAttribute="trailing" constant="10" id="yyr-mK-jbm"/>
             </constraints>
-            <size key="customSize" width="211" height="248"/>
-            <point key="canvasLocation" x="-483.33333333333337" y="82.366071428571431"/>
+            <size key="customSize" width="574" height="292"/>
+            <connections>
+                <outlet property="dayView" destination="vlh-ng-Eik" id="fQO-9U-pWJ"/>
+                <outlet property="nameLabel" destination="xdp-Eb-ZTq" id="los-In-5V1"/>
+            </connections>
+            <point key="canvasLocation" x="-220.28985507246378" y="97.098214285714278"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

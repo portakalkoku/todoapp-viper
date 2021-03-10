@@ -6,3 +6,9 @@
 //
 
 import Foundation
+struct Day{
+    let name:String
+    let id:Int  //Simply 1-Monday 2-Tuesday ....
+    var selected:Bool
+
+}

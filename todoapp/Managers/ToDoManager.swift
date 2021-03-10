@@ -6,3 +6,20 @@
 //
 
 import Foundation
+class ToDoManager {
+    static let shared = ToDoManager()
+    
+    let documentManager = DocumentManager.shared
+    
+    
+    func fetchToDos() -> [ToDoItem] {
+        guard let toDoList = documentManager.readJsonFile() else {return []}
+        return toDoList
+    }
+    
+
+}
+    
+    
+    
+
